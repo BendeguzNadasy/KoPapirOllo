@@ -15,6 +15,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#xda;j j&#xe1;t&#xe9;k"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ujJatek"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuMentes">
               <Properties>
@@ -138,6 +141,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="K&#x150;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jatekosValaszt"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnOllo">
       <Properties>
@@ -146,6 +152,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="OLL&#xd3;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jatekosValaszt"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPapir">
       <Properties>
@@ -154,6 +163,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="PAP&#xcd;R"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jatekosValaszt"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -176,26 +188,36 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblGepNyeresei" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblJatekosNyeresei" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblModKiir" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblKorAllasa" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="lblDonteltenek" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblGepNyeresei" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblJatekosNyeresei" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblModKiir" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblKorAllasa" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblModKiir" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   <Component id="lblKorAllasa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblModKiir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="lblGepNyeresei" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblJatekosNyeresei" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblDonteltenek" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -204,7 +226,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblKorAllasa">
           <Properties>
-            <Property name="text" type="java.lang.String" value="K&#xf6;r &#xe1;ll&#xe1;sa:"/>
+            <Property name="text" type="java.lang.String" value="-- K&#xf6;r &#xe1;ll&#xe1;sa --"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblGepNyeresei">
@@ -220,6 +242,11 @@
         <Component class="javax.swing.JLabel" name="lblModKiir">
           <Properties>
             <Property name="text" type="java.lang.String" value="M&#xf3;d: "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblDonteltenek">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="D&#xf6;ntetlenek:"/>
           </Properties>
         </Component>
       </SubComponents>
