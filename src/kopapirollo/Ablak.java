@@ -128,7 +128,7 @@ public class Ablak extends javax.swing.JFrame {
         mnuUjJatek.setText("Új játék");
         mnuUjJatek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ujJatek(evt);
+                ujJatekNyom(evt);
             }
         });
         mnuJatek.add(mnuUjJatek);
@@ -146,14 +146,29 @@ public class Ablak extends javax.swing.JFrame {
         btnGrp.add(mnuMod3);
         mnuMod3.setSelected(true);
         mnuMod3.setText("3 nyerésig");
+        mnuMod3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ujJatekNyom(evt);
+            }
+        });
         mnuMod.add(mnuMod3);
 
         btnGrp.add(mnuMod5);
         mnuMod5.setText("5 nyerésig");
+        mnuMod5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ujJatekNyom(evt);
+            }
+        });
         mnuMod.add(mnuMod5);
 
         btnGrp.add(mnuMod7);
         mnuMod7.setText("7 nyerésig");
+        mnuMod7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ujJatekNyom(evt);
+            }
+        });
         mnuMod.add(mnuMod7);
 
         jMenuBar1.add(mnuMod);
@@ -209,9 +224,9 @@ public class Ablak extends javax.swing.JFrame {
         kiNyer();
     }//GEN-LAST:event_jatekosValaszt
 
-    private void ujJatek(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ujJatek
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ujJatek
+    private void ujJatekNyom(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ujJatekNyom
+        ujJatek();
+    }//GEN-LAST:event_ujJatekNyom
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -302,8 +317,19 @@ public class Ablak extends javax.swing.JFrame {
     }
 
     private void ujJatek() {
+        int mod;
+        if (mnuMod3.isSelected()) {
+            mod = 3;
+        }
+        else if (mnuMod5.isSelected()) {
+            mod = 5;
+        }
+        else {
+            mod = 7;
+        }
         jatekos = new Jatekos();
-        gep = new Gep();
+        gep = new Gep(mod);
+        lblModKiir.setText("Mód: " + gep.getMod() + " nyerésig ");
         lblGepNyeresei.setText("Gép nyerései: 0");
         lblJatekosNyeresei.setText("Te nyeréseid: 0");
         lblDonteltenek.setText("Döntetlenek: 0");
