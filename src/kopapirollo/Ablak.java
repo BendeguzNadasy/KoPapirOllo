@@ -2,8 +2,10 @@ package kopapirollo;
 
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Ablak extends javax.swing.JFrame {
+
     public ArrayList<String> opcio; //= new ArrayList {"KŐ", "PAPÍR", "OLLÓ"} ;
     Jatekos jatekos;
     Gep gep;
@@ -11,13 +13,13 @@ public class Ablak extends javax.swing.JFrame {
     public String gepOp;
     public int gepInd;
     public int dontetlen;
-    
+
     public Ablak() {
-        initComponents();
         opcio = new ArrayList<>();
         opcio.add("KŐ");
         opcio.add("PAPÍR");
         opcio.add("OLLÓ");
+        initComponents();
         ujJatek();
     }
 
@@ -47,8 +49,13 @@ public class Ablak extends javax.swing.JFrame {
         mnuMod5 = new javax.swing.JRadioButtonMenuItem();
         mnuMod7 = new javax.swing.JRadioButtonMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Kő Papír Olló");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         btnKo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btnKo.setText("KŐ");
@@ -228,6 +235,13 @@ public class Ablak extends javax.swing.JFrame {
         ujJatek();
     }//GEN-LAST:event_ujJatekNyom
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        int gomb = JOptionPane.showConfirmDialog(this, "Biztos kilépsz?", "KILÉPÉS", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (gomb == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -285,53 +299,69 @@ public class Ablak extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void kiNyer() {
+        System.out.println("ki nyer?");
         if ((gepOp.equals("KŐ") && jatekosOp.equals("PAPÍR"))
                 || (gepOp.equals("PAPÍR") && jatekosOp.equals("OLLÓ"))
-                || (gepOp.equals("OLLÓ") && jatekosOp.equals("KŐ"))
-        ) 
-        {
+                || (gepOp.equals("OLLÓ") && jatekosOp.equals("KŐ"))) {
             jatekos.jatekosNyer();
-            lblJatekosNyeresei.setText("Te nyeréseid: " + jatekos.getNyeresek());
             System.out.println("Játékos nyer");
-        }
-        else if ((jatekosOp.equals("KŐ") && gepOp.equals("PAPÍR"))
+        } else if ((jatekosOp.equals("KŐ") && gepOp.equals("PAPÍR"))
                 || (jatekosOp.equals("PAPÍR") && gepOp.equals("OLLÓ"))
-                || (jatekosOp.equals("OLLÓ") && gepOp.equals("KŐ"))
-        ) 
-        {
+                || (jatekosOp.equals("OLLÓ") && gepOp.equals("KŐ"))) {
             gep.jatekosNyer();
-            lblGepNyeresei.setText("Gép nyerései: " + gep.getNyeresek());
             System.out.println("Gép nyer");
-        }
-        else  {
-            ++dontetlen;
-            lblDonteltenek.setText("Döntetlenek: " + dontetlen);
+        } else {
+            dontetlen++;
             System.out.println("Döntetlen");
         }
+        allaskiir();
+        ellenorzes();
     }
 
     private void gepValaszt() {
+        System.out.println("gép választ");
         gepInd = (int) (Math.random() * 3);
         gepOp = opcio.get(gepInd);
         lblGepValasztasa.setText("Gép választása: " + gepOp);
     }
 
     private void ujJatek() {
-        int mod;
+        int mod = 0;
         if (mnuMod3.isSelected()) {
             mod = 3;
-        }
-        else if (mnuMod5.isSelected()) {
+        } else if (mnuMod5.isSelected()) {
             mod = 5;
-        }
-        else {
+        } else {
             mod = 7;
         }
         jatekos = new Jatekos();
         gep = new Gep(mod);
         lblModKiir.setText("Mód: " + gep.getMod() + " nyerésig ");
-        lblGepNyeresei.setText("Gép nyerései: 0");
-        lblJatekosNyeresei.setText("Te nyeréseid: 0");
-        lblDonteltenek.setText("Döntetlenek: 0");
+        allaskiir();
+    }
+
+    private void ellenorzes() {
+        String szoveg = "";
+        String cim = "";
+        boolean kiirhatja = false;
+        if (jatekos.getNyeresek() == gep.getMod()) {
+            cim = "Nyertél!";
+            szoveg = "Te nyerted a kört!";
+            kiirhatja = true;
+        } else if (gep.getNyeresek() == gep.getMod()) {
+            cim = "Vesztettél!";
+            szoveg = "Gép nyerte a kört!";
+            kiirhatja = true;
+        }
+        if (kiirhatja) {
+            JOptionPane.showMessageDialog(this, szoveg, cim, JOptionPane.INFORMATION_MESSAGE);
+        }
+        //ujJatek();
+    }
+
+    private void allaskiir() {
+        lblJatekosNyeresei.setText("Te nyeréseid: " + jatekos.getNyeresek());
+        lblGepNyeresei.setText("Gép nyerései: " + gep.getNyeresek());
+        lblDonteltenek.setText("Döntetlenek: " + dontetlen);
     }
 }
