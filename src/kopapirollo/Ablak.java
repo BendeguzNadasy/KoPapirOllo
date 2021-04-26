@@ -1,6 +1,14 @@
 package kopapirollo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -141,9 +149,19 @@ public class Ablak extends javax.swing.JFrame {
         mnuJatek.add(mnuUjJatek);
 
         mnuMentes.setText("Mentés");
+        mnuMentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuMentesActionPerformed(evt);
+            }
+        });
         mnuJatek.add(mnuMentes);
 
         mnuBetoltes.setText("Betöltés");
+        mnuBetoltes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBetoltesActionPerformed(evt);
+            }
+        });
         mnuJatek.add(mnuBetoltes);
 
         jMenuBar1.add(mnuJatek);
@@ -242,6 +260,46 @@ public class Ablak extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void mnuMentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuMentesActionPerformed
+        try {
+            FileOutputStream fk = new FileOutputStream("jatekos.bin");
+            ObjectOutputStream ok = new ObjectOutputStream(fk);
+            ok.writeObject(jatekos);
+            
+            fk = new FileOutputStream("gep.bin");
+            ok = new ObjectOutputStream(fk);
+            ok.writeObject(gep);
+            ok.close();
+            System.out.println("Mentés sikeres!");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ablak.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ablak.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuMentesActionPerformed
+
+    private void mnuBetoltesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBetoltesActionPerformed
+        try {
+            FileInputStream fb = new FileInputStream("jatekos.bin");
+            ObjectInputStream ob = new ObjectInputStream(fb);
+            jatekos = (Jatekos) ob.readObject();
+            
+            fb = new FileInputStream("gep.bin");
+            ob = new ObjectInputStream(fb);
+            gep = (Gep) ob.readObject();
+            
+            ob.close();
+            System.out.println("Betöltés sikeres!");
+            allaskiir();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ablak.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ablak.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Ablak.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_mnuBetoltesActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -334,9 +392,10 @@ public class Ablak extends javax.swing.JFrame {
         } else {
             mod = 7;
         }
+        dontetlen = 0;
         jatekos = new Jatekos();
         gep = new Gep(mod);
-        lblModKiir.setText("Mód: " + gep.getMod() + " nyerésig ");
+        
         allaskiir();
     }
 
@@ -360,8 +419,11 @@ public class Ablak extends javax.swing.JFrame {
     }
 
     private void allaskiir() {
+        lblModKiir.setText("Mód: " + gep.getMod() + " nyerésig ");
         lblJatekosNyeresei.setText("Te nyeréseid: " + jatekos.getNyeresek());
         lblGepNyeresei.setText("Gép nyerései: " + gep.getNyeresek());
         lblDonteltenek.setText("Döntetlenek: " + dontetlen);
     }
+
+
 }

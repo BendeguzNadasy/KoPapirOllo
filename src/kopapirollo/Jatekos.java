@@ -1,6 +1,8 @@
 package kopapirollo;
 
-public class Jatekos {
+import java.io.Serializable;
+
+public class Jatekos implements Serializable{
     private int nyeresek;
 
     public Jatekos() {
